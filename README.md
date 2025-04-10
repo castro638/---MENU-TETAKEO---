@@ -12,6 +12,7 @@
     .boton { display: inline-block; margin: 10px auto; padding: 10px 20px; background: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; text-align: center; }
     #mediosPago { display: none; text-align: center; margin-top: 30px; }
     .link-pago { display: block; margin: 10px auto; padding: 10px; background: #007bff; color: white; text-decoration: none; border-radius: 5px; max-width: 300px; }
+    #numeros { display: none; text-align: center; margin-top: 10px; font-weight: bold; }
   </style>
 </head>
 <body>
@@ -19,10 +20,15 @@
   <div id="menu"></div>
   <button class="boton" onclick="finalizarCompra()">Finalizar Compra</button>
   <button class="boton" onclick="reiniciar()">Reiniciar</button>
+
   <div id="mediosPago">
     <h2>Medios de Pago</h2>
-    <a href="intent://send?phone=+573152553101#Intent;scheme=nequi;package=com.nequi.mobile.app;end" class="link-pago">Pagar con Nequi (3152553101)</a>
-    <a href="intent://send?phone=+573223013074#Intent;scheme=daviplata;package=com.davivienda.daviplata;end" class="link-pago">Pagar con Daviplata (3223013074)</a>
+    <a href="intent://send?phone=+573152553101#Intent;scheme=nequi;package=com.nequi.mobile.app;end" class="link-pago">Pagar con Nequi</a>
+    <a href="intent://send?phone=+573223013074#Intent;scheme=daviplata;package=com.davivienda.daviplata;end" class="link-pago">Pagar con Daviplata</a>
+    <div id="numeros">
+      <p>3152553101</p>
+      <p>3223013074</p>
+    </div>
   </div>
 
   <script>
@@ -68,6 +74,7 @@
 
     function finalizarCompra() {
       document.getElementById("mediosPago").style.display = "block";
+      document.getElementById("numeros").style.display = "block";
       window.scrollTo(0, document.body.scrollHeight);
     }
 
