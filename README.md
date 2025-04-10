@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Menú Restaurante</title>
+  <title>Menú Restaurante - Martes</title>
   <style>
     body { font-family: Arial, sans-serif; padding: 20px; background-color: #f2f2f2; }
     h1, h2 { text-align: center; }
@@ -16,8 +16,8 @@
   </style>
 </head>
 <body>
-  <h1>Menú Restaurante</h1>
-  <p style="text-align:center; font-weight:bold;">Menú disponible todos los días. Las promociones aplican solo los martes.</p>
+  <h1>Menú Restaurante - Martes</h1>
+  <p style="text-align:center; font-weight:bold;">Menú completo con promociones disponible todos los días</p>
   <div id="menu"></div>
   <button class="boton" onclick="finalizarCompra()">Finalizar Compra</button>
   <button class="boton" onclick="reiniciar()">Reiniciar</button>
@@ -32,9 +32,6 @@
   </div>
 
   <script>
-    const dia = new Date().getDay(); // 2 = martes
-    const esMartes = dia === 2;
-
     const menu = [
       { nombre: "Hamburguesa Sencilla", descripcion: "Carne artesanal, queso doble crema, verduras (lechuga, tomate, cebolla caramelizada), salsas (tártara, ranchera, BBQ), pan artesanal.", precio: 10000 },
       { nombre: "Hamburguesa Especial", descripcion: "Carne artesanal, tocineta ahumada, huevo, queso doble crema, huevo de codorniz, verduras, salsas, pan artesanal.", precio: 15000 },
@@ -51,18 +48,13 @@
       { nombre: "Bebida Cuatro", descripcion: "Bebida personal Cuatro", precio: 4000 },
       { nombre: "Bebida Kola Román", descripcion: "Bebida personal Kola Román", precio: 4000 },
       { nombre: "Papas a la Francesa (Porción)", descripcion: "Porción de papas a la francesa", precio: 6500 },
-    ];
-
-    const promocionesMartes = [
       { nombre: "Promo Martes: 2 Hamburguesas Sencillas", descripcion: "2 Hamburguesas por solo $18.000", precio: 18000 },
       { nombre: "Promo Martes: 2 Perros Calientes", descripcion: "2 Perros Calientes por $12.000", precio: 12000 },
       { nombre: "Promo Martes: Mazorcada Sencilla", descripcion: "Mazorcada sencilla por $22.500", precio: 22500 }
     ];
 
     const contenedorMenu = document.getElementById("menu");
-    const lista = esMartes ? [...menu, ...promocionesMartes] : [...menu];
-
-    lista.forEach(item => {
+    menu.forEach(item => {
       const div = document.createElement("div");
       div.className = "menu-item";
       div.innerHTML = `<h3>${item.nombre}</h3><p>${item.descripcion}</p><p class='precio'>$${item.precio.toLocaleString()}</p>`;
