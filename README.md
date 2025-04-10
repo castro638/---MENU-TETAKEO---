@@ -10,14 +10,15 @@
     .menu-item { background: #fff; padding: 15px; margin-bottom: 10px; border-radius: 8px; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
     .precio { font-weight: bold; color: green; }
     .boton { display: inline-block; margin: 10px auto; padding: 10px 20px; background: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; text-align: center; }
-    #mediosPago { display: none; text-align: center; margin-top: 30px; }
+    .contador { margin-top: 10px; font-weight: bold; }
     .link-pago { display: block; margin: 10px auto; padding: 10px; background: #007bff; color: white; text-decoration: none; border-radius: 5px; max-width: 300px; }
-    #numeros { display: none; text-align: center; margin-top: 10px; font-weight: bold; }
+    #mediosPago, #numeros, #total { display: none; text-align: center; margin-top: 30px; font-weight: bold; }
   </style>
 </head>
 <body>
   <h1>Menú Restaurante</h1>
   <div id="menu"></div>
+  <div id="total">Total a pagar: $<span id="totalValor">0</span></div>
   <button class="boton" onclick="finalizarCompra()">Finalizar Compra</button>
   <button class="boton" onclick="reiniciar()">Reiniciar</button>
 
@@ -52,13 +53,36 @@
       { nombre: "Promo Martes: Mazorcada Sencilla", descripcion: "Mazorcada sencilla por $22.500", precio: 22500 }
     ];
 
+    let total = 0;
+
+    function actualizarTotal() {
+      document.getElementById("totalValor").textContent = total.toLocaleString();
+    }
+
     const contenedorMenu = document.getElementById("menu");
-    menu.forEach(item => {
+    menu.forEach((item, index) => {
       const div = document.createElement("div");
       div.className = "menu-item";
-      div.innerHTML = `<h3>${item.nombre}</h3><p>${item.descripcion}</p><p class='precio'>$${item.precio.toLocaleString()}</p>`;
+      div.innerHTML = `
+        <h3>${item.nombre}</h3>
+        <p>${item.descripcion}</p>
+        <p class='precio'>$${item.precio.toLocaleString()}</p>
+        <button onclick="agregar(${item.precio})">Agregar</button>
+        <button onclick="quitar(${item.precio})">Quitar</button>
+      `;
       contenedorMenu.appendChild(div);
     });
+
+    function agregar(precio) {
+      total += precio;
+      document.getElementById("total").style.display = "block";
+      actualizarTotal();
+    }
+
+    function quitar(precio) {
+      total = Math.max(0, total - precio);
+      actualizarTotal();
+    }
 
     function finalizarCompra() {
       document.getElementById("mediosPago").style.display = "block";
@@ -67,7 +91,11 @@
     }
 
     function reiniciar() {
-      location.reload();
+      total = 0;
+      actualizarTotal();
+      document.getElementById("total").style.display = "none";
+      document.getElementById("mediosPago").style.display = "none";
+      document.getElementById("numeros").style.display = "none";
     }
   </script>
 </body>
