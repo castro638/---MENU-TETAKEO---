@@ -21,8 +21,8 @@
   <button class="boton" onclick="reiniciar()">Reiniciar</button>
   <div id="mediosPago">
     <h2>Medios de Pago</h2>
-    <a href="nequi://" class="link-pago">Pagar con Nequi (3152553101)</a>
-    <a href="daviplata://" class="link-pago">Pagar con Daviplata (3223013074)</a>
+    <a href="intent://send?phone=+573152553101#Intent;scheme=nequi;package=com.nequi.mobile.app;end" class="link-pago">Pagar con Nequi (3152553101)</a>
+    <a href="intent://send?phone=+573223013074#Intent;scheme=daviplata;package=com.davivienda.daviplata;end" class="link-pago">Pagar con Daviplata (3223013074)</a>
   </div>
 
   <script>
