@@ -13,6 +13,7 @@
     .contador { margin-top: 10px; font-weight: bold; }
     .link-pago { display: block; margin: 10px auto; padding: 10px; background: #007bff; color: white; text-decoration: none; border-radius: 5px; max-width: 300px; }
     #mediosPago, #numeros, #total { display: none; text-align: center; margin-top: 30px; font-weight: bold; }
+    .categoria { background-color: #ddd; padding: 10px; border-radius: 5px; margin-top: 20px; font-weight: bold; }
   </style>
 </head>
 <body>
@@ -33,34 +34,42 @@
 
   <script>
     const menu = [
-      { nombre: "Hamburguesa Sencilla", descripcion: "Carne artesanal, queso doble crema, verduras (lechuga, tomate, cebolla caramelizada), salsas (tártara, ranchera, BBQ), pan artesanal.", precio: 10000 },
-      { nombre: "Hamburguesa Especial", descripcion: "Carne artesanal, tocineta ahumada, huevo, queso doble crema, huevo de codorniz, verduras, salsas, pan artesanal.", precio: 15000 },
-      { nombre: "Hamburguesa Tetakeo", descripcion: "Carne artesanal, pechuga a la plancha, tocineta, huevo, queso doble crema, huevo de codorniz, verduras, salsas, pan artesanal.", precio: 22000 },
-      { nombre: "Perro Caliente", descripcion: "Salchipapa americana, cebolla caramelizada, papas cabello de ángel, queso campesino, salsas, pan artesanal.", precio: 8000 },
-      { nombre: "Perro Especial Mechiperro", descripcion: "Salchipapa americana, carne esmechada, cebolla caramelizada, lechuga, papas cabello de ángel, queso campesino, salsas, pan artesanal.", precio: 15000 },
-      { nombre: "Salchipapa Sencilla", descripcion: "Salchipapa americana, papas a la francesa, queso campesino, salsas.", precio: 10500 },
-      { nombre: "Salchipapa Especial", descripcion: "Carne esmechada, salchicha americana, papas a la francesa, lechuga, tomate, queso campesino, huevos de codorniz, maíz tierno, salsas.", precio: 20500 },
-      { nombre: "Salchipapa Especial de Pollo", descripcion: "Pollo, salchicha americana, papas a la francesa, lechuga, tomate, queso campesino, huevos de codorniz, salsas.", precio: 23500 },
-      { nombre: "Picada", descripcion: "Carne de res, cerdo, pechuga, salchicha americana, papas a la francesa, lechuga, tomate, cebolla caramelizada, queso campesino, aguacate, huevo de codorniz, salsas.", precio: 35500 },
-      { nombre: "Mazorca", descripcion: "Carne de res, cerdo, pechuga, papas cabello de ángel, maíz tierno, papas a la francesa, queso campesino, salsas.", precio: 35500 },
-      { nombre: "Bebida Coca-Cola", descripcion: "Bebida personal Coca-Cola", precio: 4000 },
-      { nombre: "Bebida Sprite", descripcion: "Bebida personal Sprite", precio: 4000 },
-      { nombre: "Bebida Cuatro", descripcion: "Bebida personal Cuatro", precio: 4000 },
-      { nombre: "Bebida Kola Román", descripcion: "Bebida personal Kola Román", precio: 4000 },
-      { nombre: "Papas a la Francesa (Porción)", descripcion: "Porción de papas a la francesa", precio: 6500 },
-      { nombre: "Promo Martes: 2 Hamburguesas Sencillas", descripcion: "2 Hamburguesas por solo $18.000", precio: 18000 },
-      { nombre: "Promo Martes: 2 Perros Calientes", descripcion: "2 Perros Calientes por $12.000", precio: 12000 },
-      { nombre: "Promo Martes: Mazorcada Sencilla", descripcion: "Mazorcada sencilla por $22.500", precio: 22500 }
+      { categoria: "Hamburguesas", nombre: "Hamburguesa Sencilla", descripcion: "Carne artesanal, queso doble crema, verduras (lechuga, tomate, cebolla caramelizada), salsas (tártara, ranchera, BBQ), pan artesanal.", precio: 10000 },
+      { categoria: "Hamburguesas", nombre: "Hamburguesa Especial", descripcion: "Carne artesanal, tocineta ahumada, huevo, queso doble crema, huevo de codorniz, verduras, salsas, pan artesanal.", precio: 15000 },
+      { categoria: "Hamburguesas", nombre: "Hamburguesa Tetakeo", descripcion: "Carne artesanal, pechuga a la plancha, tocineta, huevo, queso doble crema, huevo de codorniz, verduras, salsas, pan artesanal.", precio: 22000 },
+      { categoria: "Perros Calientes", nombre: "Perro Caliente", descripcion: "Salchipapa americana, cebolla caramelizada, papas cabello de ángel, queso campesino, salsas, pan artesanal.", precio: 8000 },
+      { categoria: "Perros Calientes", nombre: "Perro Especial Mechiperro", descripcion: "Salchipapa americana, carne esmechada, cebolla caramelizada, lechuga, papas cabello de ángel, queso campesino, salsas, pan artesanal.", precio: 15000 },
+      { categoria: "Salchipapas", nombre: "Salchipapa Sencilla", descripcion: "Salchipapa americana, papas a la francesa, queso campesino, salsas.", precio: 10500 },
+      { categoria: "Salchipapas", nombre: "Salchipapa Especial", descripcion: "Carne esmechada, salchicha americana, papas a la francesa, lechuga, tomate, queso campesino, huevos de codorniz, maíz tierno, salsas.", precio: 20500 },
+      { categoria: "Salchipapas", nombre: "Salchipapa Especial de Pollo", descripcion: "Pollo, salchicha americana, papas a la francesa, lechuga, tomate, queso campesino, huevos de codorniz, salsas.", precio: 23500 },
+      { categoria: "Otros", nombre: "Picada", descripcion: "Carne de res, cerdo, pechuga, salchicha americana, papas a la francesa, lechuga, tomate, cebolla caramelizada, queso campesino, aguacate, huevo de codorniz, salsas.", precio: 35500 },
+      { categoria: "Otros", nombre: "Mazorca", descripcion: "Carne de res, cerdo, pechuga, papas cabello de ángel, maíz tierno, papas a la francesa, queso campesino, salsas.", precio: 35500 },
+      { categoria: "Bebidas", nombre: "Bebida Coca-Cola", descripcion: "Bebida personal Coca-Cola", precio: 4000 },
+      { categoria: "Bebidas", nombre: "Bebida Sprite", descripcion: "Bebida personal Sprite", precio: 4000 },
+      { categoria: "Bebidas", nombre: "Bebida Cuatro", descripcion: "Bebida personal Cuatro", precio: 4000 },
+      { categoria: "Bebidas", nombre: "Bebida Kola Román", descripcion: "Bebida personal Kola Román", precio: 4000 },
+      { categoria: "Otros", nombre: "Papas a la Francesa (Porción)", descripcion: "Porción de papas a la francesa", precio: 6500 },
+      { categoria: "Promociones", nombre: "Promo Martes: 2 Hamburguesas Sencillas", descripcion: "2 Hamburguesas por solo $18.000", precio: 18000 },
+      { categoria: "Promociones", nombre: "Promo Martes: 2 Perros Calientes", descripcion: "2 Perros Calientes por $12.000", precio: 12000 },
+      { categoria: "Promociones", nombre: "Promo Martes: Mazorcada Sencilla", descripcion: "Mazorcada sencilla por $22.500", precio: 22500 }
     ];
 
     let total = 0;
-
     function actualizarTotal() {
       document.getElementById("totalValor").textContent = total.toLocaleString();
     }
 
     const contenedorMenu = document.getElementById("menu");
-    menu.forEach((item, index) => {
+    let categoriaActual = "";
+
+    menu.forEach((item) => {
+      if (item.categoria !== categoriaActual) {
+        const cat = document.createElement("div");
+        cat.className = "categoria";
+        cat.textContent = item.categoria;
+        contenedorMenu.appendChild(cat);
+        categoriaActual = item.categoria;
+      }
       const div = document.createElement("div");
       div.className = "menu-item";
       div.innerHTML = `
