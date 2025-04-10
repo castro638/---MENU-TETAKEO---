@@ -62,7 +62,7 @@
     const contenedorMenu = document.getElementById("menu");
     let categoriaActual = "";
 
-    menu.forEach((item) => {
+    menu.forEach((item, index) => {
       if (item.categoria !== categoriaActual) {
         const cat = document.createElement("div");
         cat.className = "categoria";
@@ -76,21 +76,30 @@
         <h3>${item.nombre}</h3>
         <p>${item.descripcion}</p>
         <p class='precio'>$${item.precio.toLocaleString()}</p>
-        <button onclick="agregar(${item.precio})">Agregar</button>
-        <button onclick="quitar(${item.precio})">Quitar</button>
+        <p class='contador'>Cantidad: <span id="cantidad-${index}">0</span></p>
+        <button onclick="agregar(${item.precio}, ${index})">Agregar</button>
+        <button onclick="quitar(${item.precio}, ${index})">Quitar</button>
       `;
       contenedorMenu.appendChild(div);
     });
 
-    function agregar(precio) {
+    const cantidades = new Array(menu.length).fill(0);
+
+    function agregar(precio, index) {
       total += precio;
+      cantidades[index]++;
+      document.getElementById(`cantidad-${index}`).textContent = cantidades[index];
       document.getElementById("total").style.display = "block";
       actualizarTotal();
     }
 
-    function quitar(precio) {
-      total = Math.max(0, total - precio);
-      actualizarTotal();
+    function quitar(precio, index) {
+      if (cantidades[index] > 0) {
+        total -= precio;
+        cantidades[index]--;
+        document.getElementById(`cantidad-${index}`).textContent = cantidades[index];
+        actualizarTotal();
+      }
     }
 
     function finalizarCompra() {
@@ -101,6 +110,10 @@
 
     function reiniciar() {
       total = 0;
+      for (let i = 0; i < cantidades.length; i++) {
+        cantidades[i] = 0;
+        document.getElementById(`cantidad-${i}`).textContent = 0;
+      }
       actualizarTotal();
       document.getElementById("total").style.display = "none";
       document.getElementById("mediosPago").style.display = "none";
