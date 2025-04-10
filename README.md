@@ -14,6 +14,7 @@
     .link-pago { display: block; margin: 10px auto; padding: 10px; background: #007bff; color: white; text-decoration: none; border-radius: 5px; max-width: 300px; }
     #mediosPago, #numeros, #total { display: none; text-align: center; margin-top: 30px; font-weight: bold; }
     .categoria { background-color: #ddd; padding: 10px; border-radius: 5px; margin-top: 20px; font-weight: bold; }
+    .cantidad { margin: 5px 0; display: block; }
   </style>
 </head>
 <body>
@@ -55,6 +56,7 @@
     ];
 
     let total = 0;
+    const cantidades = {};
     function actualizarTotal() {
       document.getElementById("totalValor").textContent = total.toLocaleString();
     }
@@ -62,7 +64,7 @@
     const contenedorMenu = document.getElementById("menu");
     let categoriaActual = "";
 
-    menu.forEach((item) => {
+    menu.forEach((item, index) => {
       if (item.categoria !== categoriaActual) {
         const cat = document.createElement("div");
         cat.className = "categoria";
@@ -70,27 +72,35 @@
         contenedorMenu.appendChild(cat);
         categoriaActual = item.categoria;
       }
+      cantidades[index] = 0;
       const div = document.createElement("div");
       div.className = "menu-item";
       div.innerHTML = `
         <h3>${item.nombre}</h3>
         <p>${item.descripcion}</p>
         <p class='precio'>$${item.precio.toLocaleString()}</p>
-        <button onclick="agregar(${item.precio})">Agregar</button>
-        <button onclick="quitar(${item.precio})">Quitar</button>
+        <button onclick="agregar(${item.precio}, ${index})">Agregar</button>
+        <button onclick="quitar(${item.precio}, ${index})">Quitar</button>
+        <span id="cantidad-${index}" class="cantidad">Cantidad: 0</span>
       `;
       contenedorMenu.appendChild(div);
     });
 
-    function agregar(precio) {
+    function agregar(precio, index) {
       total += precio;
+      cantidades[index]++;
+      document.getElementById(`cantidad-${index}`).textContent = `Cantidad: ${cantidades[index]}`;
       document.getElementById("total").style.display = "block";
       actualizarTotal();
     }
 
-    function quitar(precio) {
-      total = Math.max(0, total - precio);
-      actualizarTotal();
+    function quitar(precio, index) {
+      if (cantidades[index] > 0) {
+        total -= precio;
+        cantidades[index]--;
+        document.getElementById(`cantidad-${index}`).textContent = `Cantidad: ${cantidades[index]}`;
+        actualizarTotal();
+      }
     }
 
     function finalizarCompra() {
@@ -101,6 +111,8 @@
 
     function reiniciar() {
       total = 0;
+      for (let i in cantidades) cantidades[i] = 0;
+      document.querySelectorAll(".cantidad").forEach((el) => el.textContent = "Cantidad: 0");
       actualizarTotal();
       document.getElementById("total").style.display = "none";
       document.getElementById("mediosPago").style.display = "none";
