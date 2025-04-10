@@ -9,7 +9,7 @@
     h1, h2 { text-align: center; }
     .menu-item { background: #fff; padding: 15px; margin-bottom: 10px; border-radius: 8px; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
     .precio { font-weight: bold; color: green; }
-    .boton { display: inline-block; margin: 20px auto; padding: 10px 20px; background: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; text-align: center; }
+    .boton { display: inline-block; margin: 10px auto; padding: 10px 20px; background: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; text-align: center; }
     #mediosPago { display: none; text-align: center; margin-top: 30px; }
     .link-pago { display: block; margin: 10px auto; padding: 10px; background: #007bff; color: white; text-decoration: none; border-radius: 5px; max-width: 300px; }
   </style>
@@ -18,10 +18,11 @@
   <h1>Menú Restaurante</h1>
   <div id="menu"></div>
   <button class="boton" onclick="finalizarCompra()">Finalizar Compra</button>
+  <button class="boton" onclick="reiniciar()">Reiniciar</button>
   <div id="mediosPago">
     <h2>Medios de Pago</h2>
-    <a href="https://www.nequi.com.co/" class="link-pago" target="_blank">Pagar con Nequi</a>
-    <a href="https://www.daviplata.com/wps/portal/daviplata" class="link-pago" target="_blank">Pagar con Daviplata</a>
+    <a href="nequi://" class="link-pago">Pagar con Nequi (3152553101)</a>
+    <a href="daviplata://" class="link-pago">Pagar con Daviplata (3223013074)</a>
   </div>
 
   <script>
@@ -68,6 +69,10 @@
     function finalizarCompra() {
       document.getElementById("mediosPago").style.display = "block";
       window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function reiniciar() {
+      location.reload();
     }
   </script>
 </body>
