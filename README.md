@@ -17,6 +17,7 @@
 </head>
 <body>
   <h1>Menú Restaurante</h1>
+  <p style="text-align:center; font-weight:bold;">Menú disponible todos los días. Las promociones aplican solo los martes.</p>
   <div id="menu"></div>
   <button class="boton" onclick="finalizarCompra()">Finalizar Compra</button>
   <button class="boton" onclick="reiniciar()">Reiniciar</button>
@@ -24,10 +25,9 @@
   <div id="mediosPago">
     <h2>Medios de Pago</h2>
     <a href="intent://send?phone=+573152553101#Intent;scheme=nequi;package=com.nequi.mobile.app;end" class="link-pago">Pagar con Nequi</a>
-    <a href="intent://send?phone=+573223013074#Intent;scheme=daviplata;package=com.davivienda.daviplata;end" class="link-pago">Pagar con Daviplata</a>
+    <a href="intent://send?phone=+573152553101#Intent;scheme=daviplata;package=com.davivienda.daviplata;end" class="link-pago">Pagar con Daviplata</a>
     <div id="numeros">
       <p>3152553101</p>
-      <p>3223013074</p>
     </div>
   </div>
 
@@ -50,6 +50,7 @@
       { nombre: "Bebida Sprite", descripcion: "Bebida personal Sprite", precio: 4000 },
       { nombre: "Bebida Cuatro", descripcion: "Bebida personal Cuatro", precio: 4000 },
       { nombre: "Bebida Kola Román", descripcion: "Bebida personal Kola Román", precio: 4000 },
+      { nombre: "Papas a la Francesa (Porción)", descripcion: "Porción de papas a la francesa", precio: 6500 },
     ];
 
     const promocionesMartes = [
@@ -59,18 +60,14 @@
     ];
 
     const contenedorMenu = document.getElementById("menu");
-    const lista = esMartes ? [...menu, ...promocionesMartes] : [];
+    const lista = esMartes ? [...menu, ...promocionesMartes] : [...menu];
 
-    if (lista.length === 0) {
-      contenedorMenu.innerHTML = "<p style='text-align:center;'>El menú está disponible solo los martes. ¡Vuelve pronto!</p>";
-    } else {
-      lista.forEach(item => {
-        const div = document.createElement("div");
-        div.className = "menu-item";
-        div.innerHTML = `<h3>${item.nombre}</h3><p>${item.descripcion}</p><p class='precio'>$${item.precio.toLocaleString()}</p>`;
-        contenedorMenu.appendChild(div);
-      });
-    }
+    lista.forEach(item => {
+      const div = document.createElement("div");
+      div.className = "menu-item";
+      div.innerHTML = `<h3>${item.nombre}</h3><p>${item.descripcion}</p><p class='precio'>$${item.precio.toLocaleString()}</p>`;
+      contenedorMenu.appendChild(div);
+    });
 
     function finalizarCompra() {
       document.getElementById("mediosPago").style.display = "block";
