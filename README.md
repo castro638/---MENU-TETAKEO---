@@ -14,7 +14,6 @@
     .link-pago { display: block; margin: 10px auto; padding: 10px; background: #007bff; color: white; text-decoration: none; border-radius: 5px; max-width: 300px; }
     #mediosPago, #numeros, #total { display: none; text-align: center; margin-top: 30px; font-weight: bold; }
     .categoria { background-color: #ddd; padding: 10px; border-radius: 5px; margin-top: 20px; font-weight: bold; }
-    .cantidad { margin: 5px 0; display: block; }
   </style>
 </head>
 <body>
@@ -43,8 +42,8 @@
       { categoria: "Salchipapas", nombre: "Salchipapa Sencilla", descripcion: "Salchipapa americana, papas a la francesa, queso campesino, salsas.", precio: 10500 },
       { categoria: "Salchipapas", nombre: "Salchipapa Especial", descripcion: "Carne esmechada, salchicha americana, papas a la francesa, lechuga, tomate, queso campesino, huevos de codorniz, maíz tierno, salsas.", precio: 20500 },
       { categoria: "Salchipapas", nombre: "Salchipapa Especial de Pollo", descripcion: "Pollo, salchicha americana, papas a la francesa, lechuga, tomate, queso campesino, huevos de codorniz, salsas.", precio: 23500 },
-      { categoria: "Otros", nombre: "Picada", descripcion: "Carne de res, cerdo, pechuga, salchicha americana, papas a la francesa, lechuga, tomate, cebolla caramelizada, queso campesino, aguacate, huevo de codorniz, salsas.", precio: 35500 },
-      { categoria: "Otros", nombre: "Mazorca", descripcion: "Carne de res, cerdo, pechuga, papas cabello de ángel, maíz tierno, papas a la francesa, queso campesino, salsas.", precio: 35500 },
+      { categoria: "Otros", nombre: "Picada", descripcion: "Carne de res, cerdo, pechuga, salchicha americana, papas a la francesa, lechuga, tomate, cebolla caramelizada, queso campesino, aguacate, huevo de codorniz, salsas.", precio: 38500 },
+      { categoria: "Otros", nombre: "Mazorca", descripcion: "Carne de res, cerdo, pechuga, papas cabello de ángel, maíz tierno, papas a la francesa, queso campesino, salsas.", precio: 38500 },
       { categoria: "Bebidas", nombre: "Bebida Coca-Cola", descripcion: "Bebida personal Coca-Cola", precio: 4000 },
       { categoria: "Bebidas", nombre: "Bebida Sprite", descripcion: "Bebida personal Sprite", precio: 4000 },
       { categoria: "Bebidas", nombre: "Bebida Cuatro", descripcion: "Bebida personal Cuatro", precio: 4000 },
@@ -56,7 +55,6 @@
     ];
 
     let total = 0;
-    const cantidades = {};
     function actualizarTotal() {
       document.getElementById("totalValor").textContent = total.toLocaleString();
     }
@@ -64,7 +62,7 @@
     const contenedorMenu = document.getElementById("menu");
     let categoriaActual = "";
 
-    menu.forEach((item, index) => {
+    menu.forEach((item) => {
       if (item.categoria !== categoriaActual) {
         const cat = document.createElement("div");
         cat.className = "categoria";
@@ -72,35 +70,27 @@
         contenedorMenu.appendChild(cat);
         categoriaActual = item.categoria;
       }
-      cantidades[index] = 0;
       const div = document.createElement("div");
       div.className = "menu-item";
       div.innerHTML = `
         <h3>${item.nombre}</h3>
         <p>${item.descripcion}</p>
         <p class='precio'>$${item.precio.toLocaleString()}</p>
-        <button onclick="agregar(${item.precio}, ${index})">Agregar</button>
-        <button onclick="quitar(${item.precio}, ${index})">Quitar</button>
-        <span id="cantidad-${index}" class="cantidad">Cantidad: 0</span>
+        <button onclick="agregar(${item.precio})">Agregar</button>
+        <button onclick="quitar(${item.precio})">Quitar</button>
       `;
       contenedorMenu.appendChild(div);
     });
 
-    function agregar(precio, index) {
+    function agregar(precio) {
       total += precio;
-      cantidades[index]++;
-      document.getElementById(`cantidad-${index}`).textContent = `Cantidad: ${cantidades[index]}`;
       document.getElementById("total").style.display = "block";
       actualizarTotal();
     }
 
-    function quitar(precio, index) {
-      if (cantidades[index] > 0) {
-        total -= precio;
-        cantidades[index]--;
-        document.getElementById(`cantidad-${index}`).textContent = `Cantidad: ${cantidades[index]}`;
-        actualizarTotal();
-      }
+    function quitar(precio) {
+      total = Math.max(0, total - precio);
+      actualizarTotal();
     }
 
     function finalizarCompra() {
@@ -111,8 +101,6 @@
 
     function reiniciar() {
       total = 0;
-      for (let i in cantidades) cantidades[i] = 0;
-      document.querySelectorAll(".cantidad").forEach((el) => el.textContent = "Cantidad: 0");
       actualizarTotal();
       document.getElementById("total").style.display = "none";
       document.getElementById("mediosPago").style.display = "none";
