@@ -1,251 +1,73 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Menú del Restaurante</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Menú Restaurante</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f9f9f9;
-      color: #333;
-      padding: 20px;
-    }
-    h1, h2 {
-      color: #c0392b;
-    }
-    .menu, .cart, #promociones {
-      margin-top: 30px;
-    }
-    .item {
-      border: 1px solid #ddd;
-      padding: 15px;
-      margin-bottom: 20px;
-      background-color: #fff;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-    .item img {
-      width: 100px;
-      height: auto;
-      border-radius: 8px;
-    }
-    .info {
-      flex: 1;
-    }
-    button {
-      margin-right: 10px;
-      background-color: #27ae60;
-      color: #fff;
-      border: none;
-      padding: 8px 12px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #219150;
-    }
+    body { font-family: Arial, sans-serif; padding: 20px; background-color: #f2f2f2; }
+    h1, h2 { text-align: center; }
+    .menu-item { background: #fff; padding: 15px; margin-bottom: 10px; border-radius: 8px; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
+    .precio { font-weight: bold; color: green; }
+    .boton { display: inline-block; margin: 20px auto; padding: 10px 20px; background: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; text-align: center; }
+    #mediosPago { display: none; text-align: center; margin-top: 30px; }
+    .link-pago { display: block; margin: 10px auto; padding: 10px; background: #007bff; color: white; text-decoration: none; border-radius: 5px; max-width: 300px; }
   </style>
 </head>
 <body>
-  <h1>Menú del Restaurante</h1>
-
-  <div class="menu">
-    <h2>Hamburguesas</h2>
-    <div class="item">
-      <div class="info">
-        <h3>Hamburguesa Sencilla</h3>
-        <p>Carne artesanal, queso doble crema, verduras, salsas, pan artesanal. Precio: $10.000</p>
-        <button onclick="agregarProducto('Hamburguesa Sencilla', 10000)">Agregar</button>
-        <button onclick="quitarProducto('Hamburguesa Sencilla')">Quitar</button>
-      </div>
-    </div>
-    <div class="item">
-      <div class="info">
-        <h3>Hamburguesa Especial</h3>
-        <p>Con tocineta, huevo, queso doble crema, verduras, salsas, pan artesanal. Precio: $15.000</p>
-        <button onclick="agregarProducto('Hamburguesa Especial', 15000)">Agregar</button>
-        <button onclick="quitarProducto('Hamburguesa Especial')">Quitar</button>
-      </div>
-    </div>
-    <div class="item">
-      <div class="info">
-        <h3>Hamburguesa Tetakeo</h3>
-        <p>Carne, pechuga, tocineta, huevo, queso doble crema, verduras, salsas. Precio: $22.000</p>
-        <button onclick="agregarProducto('Hamburguesa Tetakeo', 22000)">Agregar</button>
-        <button onclick="quitarProducto('Hamburguesa Tetakeo')">Quitar</button>
-      </div>
-    </div>
-
-    <h2>Perros Calientes</h2>
-    <div class="item">
-      <div class="info">
-        <h3>Perro Caliente</h3>
-        <p>Salchipapa americana, cebolla, papas, queso, salsas. Precio: $8.000</p>
-        <button onclick="agregarProducto('Perro Caliente', 8000)">Agregar</button>
-        <button onclick="quitarProducto('Perro Caliente')">Quitar</button>
-      </div>
-    </div>
-    <div class="item">
-      <div class="info">
-        <h3>Mechiperro</h3>
-        <p>Carne esmechada, lechuga, queso, papas, salsas. Precio: $15.000</p>
-        <button onclick="agregarProducto('Mechiperro', 15000)">Agregar</button>
-        <button onclick="quitarProducto('Mechiperro')">Quitar</button>
-      </div>
-    </div>
-
-    <h2>Salchipapas</h2>
-    <div class="item">
-      <div class="info">
-        <h3>Salchipapa Sencilla</h3>
-        <p>Papas, salchicha, queso, salsa. Precio: $10.500</p>
-        <button onclick="agregarProducto('Salchipapa Sencilla', 10500)">Agregar</button>
-        <button onclick="quitarProducto('Salchipapa Sencilla')">Quitar</button>
-      </div>
-    </div>
-    <div class="item">
-      <div class="info">
-        <h3>Salchipapa Especial</h3>
-        <p>Carne esmechada, huevo, maíz, queso, papas. Precio: $20.500</p>
-        <button onclick="agregarProducto('Salchipapa Especial', 20500)">Agregar</button>
-        <button onclick="quitarProducto('Salchipapa Especial')">Quitar</button>
-      </div>
-    </div>
-    <div class="item">
-      <div class="info">
-        <h3>Salchipapa Especial de Pollo</h3>
-        <p>Pollo, queso, papas, lechuga, tomate. Precio: $23.500</p>
-        <button onclick="agregarProducto('Salchipapa Especial de Pollo', 23500)">Agregar</button>
-        <button onclick="quitarProducto('Salchipapa Especial de Pollo')">Quitar</button>
-      </div>
-    </div>
-
-    <h2>Otros</h2>
-    <div class="item">
-      <div class="info">
-        <h3>Picada</h3>
-        <p>Mixta con carnes, queso, huevo, aguacate. Precio: $35.500</p>
-        <button onclick="agregarProducto('Picada', 35500)">Agregar</button>
-        <button onclick="quitarProducto('Picada')">Quitar</button>
-      </div>
-    </div>
-    <div class="item">
-      <div class="info">
-        <h3>Mazorcada</h3>
-        <p>Mixta con carnes, papas, maíz, queso, salsas. Precio: $35.500</p>
-        <button onclick="agregarProducto('Mazorcada', 35500)">Agregar</button>
-        <button onclick="quitarProducto('Mazorcada')">Quitar</button>
-      </div>
-    </div>
-
-    <h2>Bebidas Personales</h2>
-    <div class="item">
-      <div class="info">
-        <h3>Coca-Cola</h3>
-        <p>Refresco personal clásico. Precio: $4.000</p>
-        <button onclick="agregarProducto('Coca-Cola', 4000)">Agregar</button>
-        <button onclick="quitarProducto('Coca-Cola')">Quitar</button>
-      </div>
-    </div>
-    <div class="item">
-      <div class="info">
-        <h3>Sprite</h3>
-        <p>Refresco personal sabor limón. Precio: $4.000</p>
-        <button onclick="agregarProducto('Sprite', 4000)">Agregar</button>
-        <button onclick="quitarProducto('Sprite')">Quitar</button>
-      </div>
-    </div>
-    <div class="item">
-      <div class="info">
-        <h3>Cuatro</h3>
-        <p>Refresco personal sabor cítrico. Precio: $4.000</p>
-        <button onclick="agregarProducto('Cuatro', 4000)">Agregar</button>
-        <button onclick="quitarProducto('Cuatro')">Quitar</button>
-      </div>
-    </div>
-    <div class="item">
-      <div class="info">
-        <h3>Kola Román</h3>
-        <p>Refresco tradicional colombiano. Precio: $4.000</p>
-        <button onclick="agregarProducto('Kola Román', 4000)">Agregar</button>
-        <button onclick="quitarProducto('Kola Román')">Quitar</button>
-      </div>
-    </div>
-  </div>
-
-  <div id="promociones"></div>
-
-  <div class="cart">
-    <h2>Tu pedido</h2>
-    <ul id="carrito"></ul>
-    <p><strong>Total: $<span id="total">0</span></strong></p>
-    <p>Formas de pago: Nequi, Daviplata</p>
+  <h1>Menú Restaurante</h1>
+  <div id="menu"></div>
+  <button class="boton" onclick="finalizarCompra()">Finalizar Compra</button>
+  <div id="mediosPago">
+    <h2>Medios de Pago</h2>
+    <a href="https://www.nequi.com.co/" class="link-pago" target="_blank">Pagar con Nequi</a>
+    <a href="https://www.daviplata.com/wps/portal/daviplata" class="link-pago" target="_blank">Pagar con Daviplata</a>
   </div>
 
   <script>
-    const carrito = {};
+    const dia = new Date().getDay(); // 2 = martes
+    const esMartes = dia === 2;
 
-    function agregarProducto(nombre, precio) {
-      if (!carrito[nombre]) carrito[nombre] = { cantidad: 0, precio: precio };
-      carrito[nombre].cantidad++;
-      actualizarCarrito();
+    const menu = [
+      { nombre: "Hamburguesa Sencilla", descripcion: "Carne artesanal, queso doble crema, verduras (lechuga, tomate, cebolla caramelizada), salsas (tártara, ranchera, BBQ), pan artesanal.", precio: 10000 },
+      { nombre: "Hamburguesa Especial", descripcion: "Carne artesanal, tocineta ahumada, huevo, queso doble crema, huevo de codorniz, verduras, salsas, pan artesanal.", precio: 15000 },
+      { nombre: "Hamburguesa Tetakeo", descripcion: "Carne artesanal, pechuga a la plancha, tocineta, huevo, queso doble crema, huevo de codorniz, verduras, salsas, pan artesanal.", precio: 22000 },
+      { nombre: "Perro Caliente", descripcion: "Salchipapa americana, cebolla caramelizada, papas cabello de ángel, queso campesino, salsas, pan artesanal.", precio: 8000 },
+      { nombre: "Perro Especial Mechiperro", descripcion: "Salchipapa americana, carne esmechada, cebolla caramelizada, lechuga, papas cabello de ángel, queso campesino, salsas, pan artesanal.", precio: 15000 },
+      { nombre: "Salchipapa Sencilla", descripcion: "Salchipapa americana, papas a la francesa, queso campesino, salsas.", precio: 10500 },
+      { nombre: "Salchipapa Especial", descripcion: "Carne esmechada, salchicha americana, papas a la francesa, lechuga, tomate, queso campesino, huevos de codorniz, maíz tierno, salsas.", precio: 20500 },
+      { nombre: "Salchipapa Especial de Pollo", descripcion: "Pollo, salchicha americana, papas a la francesa, lechuga, tomate, queso campesino, huevos de codorniz, salsas.", precio: 23500 },
+      { nombre: "Picada", descripcion: "Carne de res, cerdo, pechuga, salchicha americana, papas a la francesa, lechuga, tomate, cebolla caramelizada, queso campesino, aguacate, huevo de codorniz, salsas.", precio: 35500 },
+      { nombre: "Mazorca", descripcion: "Carne de res, cerdo, pechuga, papas cabello de ángel, maíz tierno, papas a la francesa, queso campesino, salsas.", precio: 35500 },
+      { nombre: "Bebida Coca-Cola", descripcion: "Bebida personal Coca-Cola", precio: 4000 },
+      { nombre: "Bebida Sprite", descripcion: "Bebida personal Sprite", precio: 4000 },
+      { nombre: "Bebida Cuatro", descripcion: "Bebida personal Cuatro", precio: 4000 },
+      { nombre: "Bebida Kola Román", descripcion: "Bebida personal Kola Román", precio: 4000 },
+    ];
+
+    const promocionesMartes = [
+      { nombre: "Promo Martes: 2 Hamburguesas Sencillas", descripcion: "2 Hamburguesas por solo $18.000", precio: 18000 },
+      { nombre: "Promo Martes: 2 Perros Calientes", descripcion: "2 Perros Calientes por $12.000", precio: 12000 },
+      { nombre: "Promo Martes: Mazorcada Sencilla", descripcion: "Mazorcada sencilla por $22.500", precio: 22500 }
+    ];
+
+    const contenedorMenu = document.getElementById("menu");
+    const lista = esMartes ? [...menu, ...promocionesMartes] : [];
+
+    if (lista.length === 0) {
+      contenedorMenu.innerHTML = "<p style='text-align:center;'>El menú está disponible solo los martes. ¡Vuelve pronto!</p>";
+    } else {
+      lista.forEach(item => {
+        const div = document.createElement("div");
+        div.className = "menu-item";
+        div.innerHTML = `<h3>${item.nombre}</h3><p>${item.descripcion}</p><p class='precio'>$${item.precio.toLocaleString()}</p>`;
+        contenedorMenu.appendChild(div);
+      });
     }
 
-    function quitarProducto(nombre) {
-      if (carrito[nombre]) {
-        carrito[nombre].cantidad--;
-        if (carrito[nombre].cantidad <= 0) delete carrito[nombre];
-        actualizarCarrito();
-      }
-    }
-
-    function actualizarCarrito() {
-      const lista = document.getElementById("carrito");
-      const totalElemento = document.getElementById("total");
-      lista.innerHTML = "";
-      let total = 0;
-      for (let producto in carrito) {
-        const item = carrito[producto];
-        total += item.cantidad * item.precio;
-        lista.innerHTML += `<li>${producto} x ${item.cantidad} - $${item.cantidad * item.precio}</li>`;
-      }
-      totalElemento.textContent = total.toLocaleString();
-    }
-
-    // Promociones del martes
-    const hoy = new Date();
-    const esMartes = hoy.getDay() === 2;
-    if (esMartes) {
-      const promociones = document.getElementById("promociones");
-      promociones.innerHTML = `
-        <h2>Promociones del Martes</h2>
-        <div class="item">
-          <div class="info">
-            <h3>2 Hamburguesas Sencillas</h3>
-            <p>Promoción del martes: $18.000</p>
-            <button onclick="agregarProducto('2 Hamburguesas Sencillas', 18000)">Agregar</button>
-            <button onclick="quitarProducto('2 Hamburguesas Sencillas')">Quitar</button>
-          </div>
-        </div>
-        <div class="item">
-          <div class="info">
-            <h3>2 Perros Calientes</h3>
-            <p>Promoción del martes: $12.000</p>
-            <button onclick="agregarProducto('2 Perros Calientes', 12000)">Agregar</button>
-            <button onclick="quitarProducto('2 Perros Calientes')">Quitar</button>
-          </div>
-        </div>
-        <div class="item">
-          <div class="info">
-            <h3>Mazorcada Sencilla Promo</h3>
-            <p>Promoción del martes: $22.500</p>
-            <button onclick="agregarProducto('Mazorcada Sencilla Promo', 22500)">Agregar</button>
-            <button onclick="quitarProducto('Mazorcada Sencilla Promo')">Quitar</button>
-          </div>
-        </div>
-      `;
+    function finalizarCompra() {
+      document.getElementById("mediosPago").style.display = "block";
+      window.scrollTo(0, document.body.scrollHeight);
     }
   </script>
 </body>
