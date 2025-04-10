@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Menú Restaurante - Martes</title>
+  <title>Menú Restaurante</title>
   <style>
     body { font-family: Arial, sans-serif; padding: 20px; background-color: #f2f2f2; }
     h1, h2 { text-align: center; }
@@ -16,8 +16,7 @@
   </style>
 </head>
 <body>
-  <h1>Menú Restaurante - Martes</h1>
-  <p style="text-align:center; font-weight:bold;">Menú completo con promociones disponible todos los días</p>
+  <h1>Menú Restaurante</h1>
   <div id="menu"></div>
   <button class="boton" onclick="finalizarCompra()">Finalizar Compra</button>
   <button class="boton" onclick="reiniciar()">Reiniciar</button>
