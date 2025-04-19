@@ -114,20 +114,29 @@
 
   <script>
     const menu = [
-      { categoria: "Hamburguesas", nombre: "Hamburguesa Sencilla", descripcion: "Carne artesanal(100g), queso doble crema, verduras, salsas, pan artesanal.", precio: 10000 },
-      { categoria: "Hamburguesas", nombre: "Hamburguesa De Patakon", descripcion: "Con patacón maduro y salsas especiales.", precio: 13000 },
-      { categoria: "Hamburguesas", nombre: "Hamburguesa Especial", descripcion: "Tocineta, huevo, doble queso, verduras y más.", precio: 15000 },
-      { categoria: "Hamburguesas", nombre: "Hamburguesa Tetakeo", descripcion: "Carne + pechuga, tocineta, huevo y todo lo demás.", precio: 22000 },
-      { categoria: "Perros Calientes", nombre: "Perro Caliente", descripcion: "Salchicha americana, papas, queso y salsas.", precio: 8000 },
-      { categoria: "Perros Calientes", nombre: "Perro Especial Mechiperro", descripcion: "Con carne esmechada y mucho sabor.", precio: 15000 },
-      { categoria: "Salchipapas", nombre: "Salchipapa Sencilla", descripcion: "Salchipapa americana, papas y salsas.", precio: 10500 },
-      { categoria: "Salchipapas", nombre: "Salchipapa Especial", descripcion: "Carne, huevo, maíz y más ingredientes top.", precio: 20500 },
-      { categoria: "Otros", nombre: "Picada", descripcion: "Carnes mixtas, papas, queso, salsas y más.", precio: 38500 },
-      { categoria: "Otros", nombre: "Mazorca", descripcion: "Maíz tierno, papas, carnes y queso.", precio: 38500 },
-      { categoria: "Bebidas", nombre: "Coca-Cola", descripcion: "Botella personal 500ml", precio: 4000 },
-      { categoria: "Bebidas", nombre: "Sprite", descripcion: "Botella personal 400ml", precio: 4000 },
-      { categoria: "Promociones", nombre: "Promo Martes: 2 Hamburguesas", descripcion: "Sencillas por $18.000", precio: 18000 }
-      // Agrega más productos aquí
+        { categoria: "Hamburguesas", nombre: "Hamburguesa Sencilla", descripcion: "Carne artesanal(100g), queso doble crema, verduras, salsas, pan artesanal.", precio: 10000 },
+      { categoria: "Hamburguesas", nombre: "Hamburguesa De Patakon", descripcion: "Carne artesanal(100g), queso, verduras, salsas, patacón maduro.", precio: 13000 },
+      { categoria: "Hamburguesas", nombre: "Hamburguesa Especial", descripcion: "Carne(150g), tocineta, huevo, queso, verduras, salsas, pan.", precio: 15000 },
+      { categoria: "Hamburguesas", nombre: "Hamburguesa Tetakeo", descripcion: "Carne y pechuga (150g c/u), tocineta, huevo, verduras, pan.", precio: 22000 },
+      { categoria: "Perros Calientes", nombre: "Perro Caliente", descripcion: "Salchicha americana, cebolla, papas, queso, salsas, pan.", precio: 8000 },
+      { categoria: "Perros Calientes", nombre: "Perro Especial Mechiperro", descripcion: "Salchicha, carne esmechada, papas, queso, verduras, pan.", precio: 15000 },
+      { categoria: "Salchipapas", nombre: "Salchipapa Sencilla", descripcion: "Salchicha, papas, queso, salsas.", precio: 10500 },
+      { categoria: "Salchipapas", nombre: "Salchipapa Especial", descripcion: "Carne esmechada, salchicha, papas, verduras, huevo codorniz.", precio: 20500 },
+      { categoria: "Salchipapas", nombre: "Salchipapa Especial para dos", descripcion: "Carne, salchichas, papas dobles, verduras, huevo codorniz.", precio: 26500 },
+      { categoria: "Salchipapas", nombre: "Salchipapa Especial de Pollo", descripcion: "Pollo, carne, salchicha, papas, verduras, huevo codorniz.", precio: 23500 },
+      { categoria: "Otros", nombre: "Picada", descripcion: "Carnes surtidas, papas, verduras, salsas, huevo codorniz.", precio: 38500 },
+      { categoria: "Otros", nombre: "Mazorca", descripcion: "Carnes, papas, queso, maíz, salsas.", precio: 38500 },
+      { categoria: "Otros", nombre: "Papas a la Francesa (Porción)", descripcion: "Porción de papas a la francesa", precio: 7000 },
+      { categoria: "Bebidas", nombre: "Bebida Coca-Cola", descripcion: "Coca-Cola personal 500ml", precio: 4000 },
+      { categoria: "Bebidas", nombre: "Bebida Sprite", descripcion: "Sprite personal 400ml", precio: 4000 },
+      { categoria: "Bebidas", nombre: "Bebida Cuatro", descripcion: "Cuatro personal 400ml", precio: 4000 },
+      { categoria: "Bebidas", nombre: "Bebida Kola Román", descripcion: "Kola Román personal 400ml", precio: 4000 },
+      { categoria: "Combos", nombre:"Combo Sencillo", descripcion: "Hamburguesa sencilla + bebida + papas.", precio: 20000 },
+      { categoria: "Combos", nombre:"Combo Especial", descripcion: "Hamburguesa especial + bebida + papas.", precio: 26000 },
+      { categoria: "Combos", nombre:"Combo Tetakeo", descripcion: "Hamburguesa Tetakeo + bebida + papas.", precio: 30000 },
+      { categoria: "Promociones", nombre: "Promo Martes: 2 Hamburguesas Sencillas", descripcion: "2 Hamburguesas por $18.000", precio: 18000 },
+      { categoria: "Promociones", nombre: "Promo Martes: 2 Perros Calientes", descripcion: "2 Perros Calientes por $12.000", precio: 12000 },
+      { categoria: "Promociones", nombre: "Promo Martes: Mazorcada Sencilla", descripcion: "Mazorcada sencilla por $22.500", precio: 22500 }
     ];
 
     let total = 0;
