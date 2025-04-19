@@ -1,38 +1,38 @@
 <!DOCTYPE html>
-<html lang="es"> 
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Menú Restaurante</title>
+  <title>Menú de Taqueo</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       padding: 20px;
-      background-color: #f9f9f9;
+      background: url('https://images.unsplash.com/photo-1606756795732-76ad9c2b1c86') no-repeat center center fixed;
+      background-size: cover;
+      color: #000;
     }
-
     h1, h2 {
       text-align: center;
-      color: #333;
+      color: #000;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 10px;
+      border-radius: 10px;
     }
-
     .menu-item {
-      background: #fff;
+      background: rgba(255, 255, 255, 0.95);
       padding: 15px;
       margin-bottom: 10px;
       border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
     }
-
     .precio {
       font-weight: bold;
       color: green;
-      margin-bottom: 5px;
     }
-
     .boton {
       display: inline-block;
-      margin: 10px 5px;
+      margin: 10px auto;
       padding: 10px 20px;
       background: #28a745;
       color: white;
@@ -41,16 +41,6 @@
       cursor: pointer;
       text-align: center;
     }
-
-    .boton:hover {
-      background-color: #218838;
-    }
-
-    .contador {
-      margin-top: 10px;
-      font-weight: bold;
-    }
-
     .link-pago {
       display: block;
       margin: 10px auto;
@@ -60,102 +50,88 @@
       text-decoration: none;
       border-radius: 5px;
       max-width: 300px;
-      text-align: center;
     }
-
-    .link-pago:hover {
-      background-color: #0056b3;
+    .contador, #direccionMostrada, #descripcionMostrada {
+      margin-top: 10px;
+      font-weight: bold;
+      background-color: rgba(255,255,255,0.8);
+      padding: 10px;
+      border-radius: 8px;
     }
-
-    #mediosPago, #numeros, #total, #extras, #WHATSAPP {
+    #total, #mediosPago, #extras, #WHATSAPP {
       display: none;
       text-align: center;
       margin-top: 30px;
-      font-weight: bold;
     }
-
     .categoria {
-      background-color: #e9ecef;
+      background-color: #ffdd57;
       padding: 10px;
       border-radius: 5px;
       margin-top: 20px;
       font-weight: bold;
-      color: #495057;
     }
-
-    input[type="text"], textarea {
-      width: 80%;
+    input, textarea {
       padding: 10px;
-      margin-bottom: 10px;
+      width: 80%;
+      margin: 10px auto;
+      display: block;
+      border-radius: 8px;
       border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 16px;
-    }
-
-    textarea {
-      resize: none;
     }
   </style>
 </head>
 <body>
-  <h1>Menú Restaurante</h1>
+  <h1>Menú de Taqueo</h1>
+
   <div id="menu"></div>
   <div id="total">Total a pagar: $<span id="totalValor">0</span></div>
+
   <button class="boton" onclick="finalizarCompra()">Finalizar Compra</button>
   <button class="boton" onclick="reiniciar()">Reiniciar</button>
 
   <div id="extras">
-    <h2>Detalles de entrega</h2>
-    <input type="text" id="direccion" placeholder="Dirección de entrega" /><br/>
-    <textarea id="comentario" rows="3" placeholder="Comentario adicional (opcional)"></textarea>
+    <input type="text" id="direccion" placeholder="Escribe tu dirección aquí" oninput="mostrarDireccion()" />
+    <textarea id="comentario" placeholder="Descripción o comentarios (ej: domicilio, cerca, etc.)" oninput="mostrarDescripcion()"></textarea>
+    <div id="direccionMostrada"></div>
+    <div id="descripcionMostrada"></div>
   </div>
 
   <div id="mediosPago">
     <h2>Medios de Pago</h2>
-    <a href="intent://send?phone=+573152553101#Intent;scheme=nequi;package=com.nequi.mobile.app;end" class="link-pago">Pagar con Nequi</a>
+    <a id="nequiPago" href="#" class="link-pago">Pagar con Nequi</a>
     <a href="intent://send?phone=+573152553101#Intent;scheme=daviplata;package=com.davivienda.daviplata;end" class="link-pago">Pagar con Daviplata</a>
-    <div id="numeros">
-      <p>📞 3152553101</p>
-    </div>
+    <p>📞 Número: 3152553101</p>
+    <p>🚚 Domicilio cerca: $4.000, lejos: $5.000, fuera de Funza: $6.000–$7.000</p>
+    <a id="WHATSAPP" class="link-pago" target="_blank">Enviar por WhatsApp</a>
   </div>
-
-  <a id="WHATSAPP" href="#" target="_blank" class="link-pago">📲 Enviar pedido por WhatsApp</a>
 
   <script>
     const menu = [
-      { categoria: "Hamburguesas", nombre: "Hamburguesa Sencilla", descripcion: "Carne artesanal(100g), queso doble crema, verduras, salsas, pan artesanal.", precio: 10000 },
-      { categoria: "Hamburguesas", nombre: "Hamburguesa De Patakon", descripcion: "Carne artesanal(100g), queso, verduras, salsas, patacón maduro.", precio: 13000 },
-      { categoria: "Hamburguesas", nombre: "Hamburguesa Especial", descripcion: "Carne(150g), tocineta, huevo, queso, verduras, salsas, pan.", precio: 15000 },
-      { categoria: "Hamburguesas", nombre: "Hamburguesa Tetakeo", descripcion: "Carne y pechuga (150g c/u), tocineta, huevo, verduras, pan.", precio: 22000 },
-      { categoria: "Perros Calientes", nombre: "Perro Caliente", descripcion: "Salchicha americana, cebolla, papas, queso, salsas, pan.", precio: 8000 },
-      { categoria: "Perros Calientes", nombre: "Perro Especial Mechiperro", descripcion: "Salchicha, carne esmechada, papas, queso, verduras, pan.", precio: 15000 },
-      { categoria: "Salchipapas", nombre: "Salchipapa Sencilla", descripcion: "Salchicha, papas, queso, salsas.", precio: 10500 },
-      { categoria: "Salchipapas", nombre: "Salchipapa Especial", descripcion: "Carne esmechada, salchicha, papas, verduras, huevo codorniz.", precio: 20500 },
-      { categoria: "Salchipapas", nombre: "Salchipapa Especial para dos", descripcion: "Carne, salchichas, papas dobles, verduras, huevo codorniz.", precio: 26500 },
-      { categoria: "Salchipapas", nombre: "Salchipapa Especial de Pollo", descripcion: "Pollo, carne, salchicha, papas, verduras, huevo codorniz.", precio: 23500 },
-      { categoria: "Otros", nombre: "Picada", descripcion: "Carnes surtidas, papas, verduras, salsas, huevo codorniz.", precio: 38500 },
-      { categoria: "Otros", nombre: "Mazorca", descripcion: "Carnes, papas, queso, maíz, salsas.", precio: 38500 },
-      { categoria: "Otros", nombre: "Papas a la Francesa (Porción)", descripcion: "Porción de papas a la francesa", precio: 7000 },
-      { categoria: "Bebidas", nombre: "Bebida Coca-Cola", descripcion: "Coca-Cola personal 500ml", precio: 4000 },
-      { categoria: "Bebidas", nombre: "Bebida Sprite", descripcion: "Sprite personal 400ml", precio: 4000 },
-      { categoria: "Bebidas", nombre: "Bebida Cuatro", descripcion: "Cuatro personal 400ml", precio: 4000 },
-      { categoria: "Bebidas", nombre: "Bebida Kola Román", descripcion: "Kola Román personal 400ml", precio: 4000 },
-      { categoria: "Combos", nombre:"Combo Sencillo", descripcion: "Hamburguesa sencilla + bebida + papas.", precio: 20000 },
-      { categoria: "Combos", nombre:"Combo Especial", descripcion: "Hamburguesa especial + bebida + papas.", precio: 26000 },
-      { categoria: "Combos", nombre:"Combo Tetakeo", descripcion: "Hamburguesa Tetakeo + bebida + papas.", precio: 30000 },
-      { categoria: "Promociones", nombre: "Promo Martes: 2 Hamburguesas Sencillas", descripcion: "2 Hamburguesas por $18.000", precio: 18000 },
-      { categoria: "Promociones", nombre: "Promo Martes: 2 Perros Calientes", descripcion: "2 Perros Calientes por $12.000", precio: 12000 },
-      { categoria: "Promociones", nombre: "Promo Martes: Mazorcada Sencilla", descripcion: "Mazorcada sencilla por $22.500", precio: 22500 }
+      { categoria: "Hamburguesas", nombre: "Hamburguesa Sencilla", descripcion: "Carne artesanal (100g), queso doble crema, verduras, salsas, pan artesanal.", precio: 10000 },
+      { categoria: "Hamburguesas", nombre: "Hamburguesa De Patakon", descripcion: "Carne, queso, verduras, patacón maduro, salsas.", precio: 13000 },
+      { categoria: "Hamburguesas", nombre: "Hamburguesa Especial", descripcion: "Carne, tocineta, huevo, verduras, queso, pan artesanal.", precio: 15000 },
+      { categoria: "Hamburguesas", nombre: "Hamburguesa Tetakeo", descripcion: "Carne, pechuga, tocineta, huevo, queso, verduras, pan.", precio: 22000 },
+      { categoria: "Perros Calientes", nombre: "Perro Caliente", descripcion: "Salchicha, papas, cebolla caramelizada, queso, salsas.", precio: 8000 },
+      { categoria: "Perros Calientes", nombre: "Perro Especial Mechiperro", descripcion: "Carne esmechada, salchicha, queso, verduras, papas, salsas.", precio: 15000 },
+      { categoria: "Salchipapas", nombre: "Salchipapa Sencilla", descripcion: "Salchicha, papas a la francesa, queso, salsas.", precio: 10500 },
+      { categoria: "Salchipapas", nombre: "Salchipapa Especial", descripcion: "Carne, salchicha, papas, verduras, huevos, maíz, queso, salsas.", precio: 20500 },
+      { categoria: "Otros", nombre: "Picada", descripcion: "Res, cerdo, pechuga, salchicha, papas, verduras, aguacate, salsas.", precio: 38500 },
+      { categoria: "Otros", nombre: "Mazorca", descripcion: "Res, cerdo, pechuga, maíz, papas, queso, salsas.", precio: 38500 },
+      { categoria: "Otros", nombre: "Papas a la Francesa", descripcion: "Porción de papas a la francesa", precio: 7000 },
+      { categoria: "Bebidas", nombre: "Coca-Cola", descripcion: "500ml", precio: 4000 },
+      { categoria: "Bebidas", nombre: "Sprite", descripcion: "400ml", precio: 4000 },
+      { categoria: "Bebidas", nombre: "Kola Román", descripcion: "400ml", precio: 4000 },
+      { categoria: "Combos", nombre: "Combo Sencillo", descripcion: "Hamburguesa sencilla + gaseosa + papa", precio: 20000 },
+      { categoria: "Combos", nombre: "Combo Especial", descripcion: "Hamburguesa especial + gaseosa + papa", precio: 26000 },
+      { categoria: "Promociones", nombre: "Martes 2 Hamburguesas", descripcion: "2 hamburguesas sencillas por $18.000", precio: 18000 }
+      // Agrega todos los demás ítems de tu menú aquí
     ];
 
     let total = 0;
     const cantidades = new Array(menu.length).fill(0);
     const contenedorMenu = document.getElementById("menu");
-    let categoriaActual = "";
 
-    function actualizarTotal() {
-      document.getElementById("totalValor").textContent = total.toLocaleString();
-    }
+    let categoriaActual = "";
 
     menu.forEach((item, index) => {
       if (item.categoria !== categoriaActual) {
@@ -165,7 +141,6 @@
         contenedorMenu.appendChild(cat);
         categoriaActual = item.categoria;
       }
-
       const div = document.createElement("div");
       div.className = "menu-item";
       div.innerHTML = `
@@ -173,8 +148,8 @@
         <p>${item.descripcion}</p>
         <p class='precio'>$${item.precio.toLocaleString()}</p>
         <p class='contador'>Cantidad: <span id="cantidad-${index}">0</span></p>
-        <button class="boton" onclick="agregar(${item.precio}, ${index})">Agregar</button>
-        <button class="boton" onclick="quitar(${item.precio}, ${index})">Quitar</button>
+        <button onclick="agregar(${item.precio}, ${index})">Agregar</button>
+        <button onclick="quitar(${item.precio}, ${index})">Quitar</button>
       `;
       contenedorMenu.appendChild(div);
     });
@@ -196,12 +171,28 @@
       }
     }
 
+    function actualizarTotal() {
+      document.getElementById("totalValor").textContent = total.toLocaleString();
+    }
+
+    function mostrarDireccion() {
+      const direccion = document.getElementById("direccion").value.trim();
+      document.getElementById("direccionMostrada").innerHTML = direccion
+        ? `📍 Dirección: <a href="https://www.google.com/maps/search/${encodeURIComponent(direccion)}" target="_blank">${direccion}</a>`
+        : '';
+    }
+
+    function mostrarDescripcion() {
+      const comentario = document.getElementById("comentario").value.trim();
+      document.getElementById("descripcionMostrada").textContent = comentario ? `🗒️ Descripción: ${comentario}` : '';
+    }
+
     function finalizarCompra() {
       document.getElementById("mediosPago").style.display = "block";
-      document.getElementById("numeros").style.display = "block";
       document.getElementById("extras").style.display = "block";
-      document.getElementById("WHATSAPP").style.display = "block";
+      document.getElementById("WHATSAPP").style.display = "inline-block";
       enviarPorWhatsApp();
+      document.getElementById("nequiPago").href = `intent://send?phone=+573152553101&text=Total%20a%20pagar:%20$${total}#Intent;scheme=nequi;package=com.nequi.mobile.app;end`;
       window.scrollTo(0, document.body.scrollHeight);
     }
 
@@ -212,14 +203,13 @@
           mensaje += `🧾 ${menu[i].nombre} x${cantidades[i]} - $${(menu[i].precio * cantidades[i]).toLocaleString()}%0A`;
         }
       }
-
       mensaje += `%0A*Total a pagar:* $${total.toLocaleString()}%0A`;
 
       const direccion = document.getElementById("direccion").value.trim();
       const comentario = document.getElementById("comentario").value.trim();
 
       if (direccion) {
-        mensaje += `%0A🏠 *Dirección de entrega:* ${direccion}`;
+        mensaje += `%0A📍 *Dirección de entrega:* ${direccion}`;
       }
 
       if (comentario) {
@@ -227,8 +217,7 @@
       }
 
       mensaje += `%0A%0A👉 Por favor confirmar disponibilidad y tiempo estimado.`;
-
-      const telefono = "573152553101";
+      const telefono = "3152553101";
       const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
       document.getElementById("WHATSAPP").href = url;
     }
@@ -242,11 +231,12 @@
       actualizarTotal();
       document.getElementById("total").style.display = "none";
       document.getElementById("mediosPago").style.display = "none";
-      document.getElementById("numeros").style.display = "none";
       document.getElementById("extras").style.display = "none";
       document.getElementById("WHATSAPP").style.display = "none";
-      document.getElementById("direccion").value = "";
-      document.getElementById("comentario").value = "";
+      document.getElementById("direccionMostrada").textContent = '';
+      document.getElementById("descripcionMostrada").textContent = '';
+      document.getElementById("direccion").value = '';
+      document.getElementById("comentario").value = '';
     }
   </script>
 </body>
