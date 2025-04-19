@@ -147,7 +147,7 @@
       { categoria: "Promociones", nombre: "Promo Martes: 2 Perros Calientes", descripcion: "2 Perros Calientes por $12.000", precio: 12000 },
       { categoria: "Promociones", nombre: "Promo Martes: Mazorcada Sencilla", descripcion: "Mazorcada sencilla por $22.500", precio: 22500 }
     ];
-
+ 
     let total = 0;
     const cantidades = new Array(menu.length).fill(0);
     const contenedorMenu = document.getElementById("menu");
