@@ -35,6 +35,7 @@
   <script>
     const menu = [
       { categoria: "Hamburguesas", nombre: "Hamburguesa Sencilla", descripcion: "Carne artesanal, queso doble crema, verduras (lechuga, tomate, cebolla caramelizada), salsas (tártara, ranchera, BBQ), pan artesanal.", precio: 10000 },
+      { categoria: "hamburguesa", nombre: "Hamburguesa De Patakon", descripcion: "Carne artesanal, queso doble crema, verduras (lechuga, tomate, cebolla caramelizada), salsas (tartara, ranchera, BBQ), patacon maduro.", precio: 13000 },
       { categoria: "Hamburguesas", nombre: "Hamburguesa Especial", descripcion: "Carne artesanal, tocineta ahumada, huevo, queso doble crema, huevo de codorniz, verduras, salsas, pan artesanal.", precio: 15000 },
       { categoria: "Hamburguesas", nombre: "Hamburguesa Tetakeo", descripcion: "Carne artesanal, pechuga a la plancha, tocineta, huevo, queso doble crema, huevo de codorniz, verduras, salsas, pan artesanal.", precio: 22000 },
       { categoria: "Perros Calientes", nombre: "Perro Caliente", descripcion: "Salchipapa americana, cebolla caramelizada, papas cabello de ángel, queso campesino, salsas, pan artesanal.", precio: 8000 },
@@ -103,7 +104,7 @@
     }
 
     function finalizarCompra() {
-      document.getElementById("mediosPago").style.display = "block";
+      document.getElementById("WHATSAPP").style.display = "block";
       document.getElementById("numeros").style.display = "block";
       window.scrollTo(0, document.body.scrollHeight);
     }
