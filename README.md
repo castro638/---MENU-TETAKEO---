@@ -2,45 +2,37 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Menú de Taqueo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Menú Restaurante</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       padding: 20px;
-      background: url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092') no-repeat center center fixed;
+      background: url('https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=1400&q=80') no-repeat center center fixed;
       background-size: cover;
-      color: #000;
+      color: #fff;
     }
-    h1, h2 {
-      text-align: center;
-      color: #000;
-      background-color: rgba(255, 255, 255, 0.8);
-      padding: 10px;
-      border-radius: 10px;
-    }
+    h1, h2 { text-align: center; text-shadow: 1px 1px 2px #000; }
     .menu-item {
-      background: rgba(255, 255, 255, 0.95);
+      background: rgba(0,0,0,0.7);
       padding: 15px;
       margin-bottom: 10px;
-      border-radius: 8px;
-      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.5);
     }
-    .precio {
-      font-weight: bold;
-      color: green;
-    }
+    .precio { font-weight: bold; color: #90ee90; }
     .boton {
-      display: inline-block;
-      margin: 10px auto;
+      display: block;
+      margin: 15px auto;
       padding: 10px 20px;
       background: #28a745;
       color: white;
       border: none;
-      border-radius: 5px;
+      border-radius: 8px;
       cursor: pointer;
-      text-align: center;
+      font-size: 16px;
     }
+    .contador { margin-top: 10px; font-weight: bold; }
     .link-pago {
       display: block;
       margin: 10px auto;
@@ -50,87 +42,90 @@
       text-decoration: none;
       border-radius: 5px;
       max-width: 300px;
-    }
-    .contador, #direccionMostrada, #descripcionMostrada {
-      margin-top: 10px;
-      font-weight: bold;
-      background-color: rgba(255,255,255,0.8);
-      padding: 10px;
-      border-radius: 8px;
-    }
-    #total, #mediosPago, #extras, #WHATSAPP {
-      display: none;
       text-align: center;
-      margin-top: 30px;
     }
     .categoria {
-      background-color: #ffdd57;
+      background-color: rgba(255,255,255,0.2);
       padding: 10px;
       border-radius: 5px;
+      margin-top: 30px;
+      font-weight: bold;
+      font-size: 18px;
+      text-shadow: 1px 1px 2px #000;
+    }
+    #total, #mediosPago, #numeros {
+      text-align: center;
       margin-top: 20px;
       font-weight: bold;
+      display: none;
+      text-shadow: 1px 1px 2px #000;
     }
     input, textarea {
-      padding: 10px;
-      width: 80%;
-      margin: 10px auto;
       display: block;
-      border-radius: 8px;
-      border: 1px solid #ccc;
+      width: 90%;
+      max-width: 400px;
+      margin: 10px auto;
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      font-size: 16px;
+    }
+    #WHATSAPP {
+      display: none;
+      margin: 15px auto;
+      background: #25d366;
+      padding: 12px;
+      color: white;
+      border-radius: 5px;
+      text-align: center;
+      font-weight: bold;
+      text-decoration: none;
+      max-width: 300px;
     }
   </style>
 </head>
 <body>
-  <h1>Menú de Taqueo</h1>
-
+  <h1>Menú Restaurante</h1>
   <div id="menu"></div>
   <div id="total">Total a pagar: $<span id="totalValor">0</span></div>
-
   <button class="boton" onclick="finalizarCompra()">Finalizar Compra</button>
   <button class="boton" onclick="reiniciar()">Reiniciar</button>
 
-  <div id="extras">
-    <input type="text" id="direccion" placeholder="Escribe tu dirección aquí" oninput="mostrarDireccion()" />
-    <textarea id="comentario" placeholder="Descripción o comentarios (ej: domicilio, cerca, etc.)" oninput="mostrarDescripcion()"></textarea>
-    <div id="direccionMostrada"></div>
-    <div id="descripcionMostrada"></div>
-  </div>
+  <!-- Extras -->
+  <input type="text" id="direccion" placeholder="Escribe tu dirección de entrega..." />
+  <textarea id="comentario" placeholder="¿Algún comentario adicional?"></textarea>
+  <a id="WHATSAPP" href="#" target="_blank">Enviar pedido por WhatsApp</a>
 
   <div id="mediosPago">
     <h2>Medios de Pago</h2>
-    <a id="nequiPago" href="#" class="link-pago">Pagar con Nequi</a>
+    <a href="intent://send?phone=+573152553101#Intent;scheme=nequi;package=com.nequi.mobile.app;end" class="link-pago">Pagar con Nequi</a>
     <a href="intent://send?phone=+573152553101#Intent;scheme=daviplata;package=com.davivienda.daviplata;end" class="link-pago">Pagar con Daviplata</a>
-    <p>📞 Número: 3152553101</p>
-    <p>🚚 Domicilio cerca: $4.000, lejos: $5.000, fuera de Funza: $6.000–$7.000</p>
-    <a id="WHATSAPP" class="link-pago" target="_blank">Enviar por WhatsApp</a>
+    <div id="numeros">
+      <p>📱 3152553101</p>
+    </div>
   </div>
 
   <script>
     const menu = [
-      { categoria: "Hamburguesas", nombre: "Hamburguesa Sencilla", descripcion: "Carne artesanal (100g), queso doble crema, verduras, salsas, pan artesanal.", precio: 10000 },
-      { categoria: "Hamburguesas", nombre: "Hamburguesa De Patakon", descripcion: "Carne, queso, verduras, patacón maduro, salsas.", precio: 13000 },
-      { categoria: "Hamburguesas", nombre: "Hamburguesa Especial", descripcion: "Carne, tocineta, huevo, verduras, queso, pan artesanal.", precio: 15000 },
-      { categoria: "Hamburguesas", nombre: "Hamburguesa Tetakeo", descripcion: "Carne, pechuga, tocineta, huevo, queso, verduras, pan.", precio: 22000 },
-      { categoria: "Perros Calientes", nombre: "Perro Caliente", descripcion: "Salchicha, papas, cebolla caramelizada, queso, salsas.", precio: 8000 },
-      { categoria: "Perros Calientes", nombre: "Perro Especial Mechiperro", descripcion: "Carne esmechada, salchicha, queso, verduras, papas, salsas.", precio: 15000 },
-      { categoria: "Salchipapas", nombre: "Salchipapa Sencilla", descripcion: "Salchicha, papas a la francesa, queso, salsas.", precio: 10500 },
-      { categoria: "Salchipapas", nombre: "Salchipapa Especial", descripcion: "Carne, salchicha, papas, verduras, huevos, maíz, queso, salsas.", precio: 20500 },
-      { categoria: "Otros", nombre: "Picada", descripcion: "Res, cerdo, pechuga, salchicha, papas, verduras, aguacate, salsas.", precio: 38500 },
-      { categoria: "Otros", nombre: "Mazorca", descripcion: "Res, cerdo, pechuga, maíz, papas, queso, salsas.", precio: 38500 },
-      { categoria: "Otros", nombre: "Papas a la Francesa", descripcion: "Porción de papas a la francesa", precio: 7000 },
-      { categoria: "Bebidas", nombre: "Coca-Cola", descripcion: "500ml", precio: 4000 },
-      { categoria: "Bebidas", nombre: "Sprite", descripcion: "400ml", precio: 4000 },
-      { categoria: "Bebidas", nombre: "Kola Román", descripcion: "400ml", precio: 4000 },
-      { categoria: "Combos", nombre: "Combo Sencillo", descripcion: "Hamburguesa sencilla + gaseosa + papa", precio: 20000 },
-      { categoria: "Combos", nombre: "Combo Especial", descripcion: "Hamburguesa especial + gaseosa + papa", precio: 26000 },
-      { categoria: "Promociones", nombre: "Martes 2 Hamburguesas", descripcion: "2 hamburguesas sencillas por $18.000", precio: 18000 }
+      { categoria: "Hamburguesas", nombre: "Hamburguesa Sencilla", descripcion: "Carne artesanal(100g), queso doble crema, verduras, salsas, pan artesanal.", precio: 10000 },
+      { categoria: "Hamburguesas", nombre: "Hamburguesa De Patakon", descripcion: "Con patacón maduro y salsas especiales.", precio: 13000 },
+      { categoria: "Hamburguesas", nombre: "Hamburguesa Especial", descripcion: "Tocineta, huevo, doble queso, verduras y más.", precio: 15000 },
+      { categoria: "Hamburguesas", nombre: "Hamburguesa Tetakeo", descripcion: "Carne + pechuga, tocineta, huevo y todo lo demás.", precio: 22000 },
+      { categoria: "Perros Calientes", nombre: "Perro Caliente", descripcion: "Salchicha americana, papas, queso y salsas.", precio: 8000 },
+      { categoria: "Perros Calientes", nombre: "Perro Especial Mechiperro", descripcion: "Con carne esmechada y mucho sabor.", precio: 15000 },
+      { categoria: "Salchipapas", nombre: "Salchipapa Sencilla", descripcion: "Salchipapa americana, papas y salsas.", precio: 10500 },
+      { categoria: "Salchipapas", nombre: "Salchipapa Especial", descripcion: "Carne, huevo, maíz y más ingredientes top.", precio: 20500 },
+      { categoria: "Otros", nombre: "Picada", descripcion: "Carnes mixtas, papas, queso, salsas y más.", precio: 38500 },
+      { categoria: "Otros", nombre: "Mazorca", descripcion: "Maíz tierno, papas, carnes y queso.", precio: 38500 },
+      { categoria: "Bebidas", nombre: "Coca-Cola", descripcion: "Botella personal 500ml", precio: 4000 },
+      { categoria: "Bebidas", nombre: "Sprite", descripcion: "Botella personal 400ml", precio: 4000 },
+      { categoria: "Promociones", nombre: "Promo Martes: 2 Hamburguesas", descripcion: "Sencillas por $18.000", precio: 18000 }
     ];
 
+    const contenedorMenu = document.getElementById("menu");
+    let categoriaActual = "";
     let total = 0;
     const cantidades = new Array(menu.length).fill(0);
-    const contenedorMenu = document.getElementById("menu");
-
-    let categoriaActual = "";
 
     menu.forEach((item, index) => {
       if (item.categoria !== categoriaActual) {
@@ -153,12 +148,17 @@
       contenedorMenu.appendChild(div);
     });
 
+    function actualizarTotal() {
+      document.getElementById("totalValor").textContent = total.toLocaleString();
+    }
+
     function agregar(precio, index) {
       total += precio;
       cantidades[index]++;
       document.getElementById(`cantidad-${index}`).textContent = cantidades[index];
       document.getElementById("total").style.display = "block";
       actualizarTotal();
+      enviarPorWhatsApp();
     }
 
     function quitar(precio, index) {
@@ -167,57 +167,37 @@
         cantidades[index]--;
         document.getElementById(`cantidad-${index}`).textContent = cantidades[index];
         actualizarTotal();
+        enviarPorWhatsApp();
       }
-    }
-
-    function actualizarTotal() {
-      document.getElementById("totalValor").textContent = total.toLocaleString();
-    }
-
-    function mostrarDireccion() {
-      const direccion = document.getElementById("direccion").value.trim();
-      document.getElementById("direccionMostrada").innerHTML = direccion
-        ? `📍 Dirección: <a href="https://www.google.com/maps/search/${encodeURIComponent(direccion)}" target="_blank">${direccion}</a>`
-        : '';
-    }
-
-    function mostrarDescripcion() {
-      const comentario = document.getElementById("comentario").value.trim();
-      document.getElementById("descripcionMostrada").textContent = comentario ? `🗒️ Descripción: ${comentario}` : '';
     }
 
     function finalizarCompra() {
       document.getElementById("mediosPago").style.display = "block";
-      document.getElementById("extras").style.display = "block";
-      document.getElementById("WHATSAPP").style.display = "inline-block";
+      document.getElementById("numeros").style.display = "block";
+      document.getElementById("WHATSAPP").style.display = "block";
       enviarPorWhatsApp();
-      document.getElementById("nequiPago").href = `intent://send?phone=+573152553101&text=Total%20a%20pagar:%20$${total}#Intent;scheme=nequi;package=com.nequi.mobile.app;end`;
       window.scrollTo(0, document.body.scrollHeight);
     }
 
     function enviarPorWhatsApp() {
-      let mensaje = "*Pedido desde el Menú:*%0A%0A";
+      let mensaje = "*🛍️ Pedido desde el Menú:*%0A%0A";
       for (let i = 0; i < menu.length; i++) {
         if (cantidades[i] > 0) {
-          mensaje += `🧾 ${menu[i].nombre} x${cantidades[i]} - $${(menu[i].precio * cantidades[i]).toLocaleString()}%0A`;
+          mensaje += `✅ ${menu[i].nombre} x${cantidades[i]} = $${(menu[i].precio * cantidades[i]).toLocaleString()}%0A`;
         }
       }
-      mensaje += `%0A*Total a pagar:* $${total.toLocaleString()}%0A`;
+      mensaje += `%0A💰 *Total a pagar:* $${total.toLocaleString()}%0A`;
 
       const direccion = document.getElementById("direccion").value.trim();
       const comentario = document.getElementById("comentario").value.trim();
 
-      if (direccion) {
-        mensaje += `%0A📍 *Dirección de entrega:* ${direccion}`;
-      }
+      if (direccion) mensaje += `%0A📍 *Dirección:* ${direccion}`;
+      if (comentario) mensaje += `%0A📝 *Comentario:* ${comentario}`;
 
-      if (comentario) {
-        mensaje += `%0A🗒️ *Comentario:* ${comentario}`;
-      }
+      mensaje += `%0A%0A🚚 Por favor confirmar disponibilidad.`;
 
-      mensaje += `%0A%0A👉 Por favor confirmar disponibilidad y tiempo estimado.`;
-      const telefono = "3152553101";
-      const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
+      const telefono = "573152553101";
+      const url = `https://wa.me/${telefono}?text=${mensaje}`;
       document.getElementById("WHATSAPP").href = url;
     }
 
@@ -230,13 +210,15 @@
       actualizarTotal();
       document.getElementById("total").style.display = "none";
       document.getElementById("mediosPago").style.display = "none";
-      document.getElementById("extras").style.display = "none";
+      document.getElementById("numeros").style.display = "none";
       document.getElementById("WHATSAPP").style.display = "none";
-      document.getElementById("direccionMostrada").textContent = '';
-      document.getElementById("descripcionMostrada").textContent = '';
-      document.getElementById("direccion").value = '';
-      document.getElementById("comentario").value = '';
+      document.getElementById("direccion").value = "";
+      document.getElementById("comentario").value = "";
     }
+
+    document.getElementById("direccion").addEventListener("input", enviarPorWhatsApp);
+    document.getElementById("comentario").addEventListener("input", enviarPorWhatsApp);
   </script>
 </body>
 </html>
+                
