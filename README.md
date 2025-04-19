@@ -9,19 +9,21 @@
     body {
       font-family: 'Roboto', sans-serif;
       margin: 0;
-      background-color: #f8f9fa;
-      color: #333;
+      background: url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
       padding: 0 10px 50px;
     }
 
     h1, h2 {
       text-align: center;
-      color: #343a40;
+      color: #fff;
       margin-top: 30px;
+      text-shadow: 1px 1px 5px #000;
     }
 
     .categoria {
-      background-color: #ffc107;
+      background-color: rgba(255,193,7,0.9);
       padding: 10px;
       border-radius: 8px;
       font-weight: bold;
@@ -29,20 +31,21 @@
       margin: 30px auto 10px;
       text-align: center;
       max-width: 600px;
+      color: #000;
     }
 
     .menu-item {
-      background: #ffffff;
+      background: rgba(0,0,0,0.7);
       padding: 20px;
       margin: 10px auto;
       border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
       max-width: 600px;
     }
 
     .menu-item h3 {
       margin: 0 0 10px;
-      color: #212529;
+      color: #ffc107;
     }
 
     .precio {
@@ -127,6 +130,7 @@
       display: block;
       border: 1px solid #ccc;
       border-radius: 5px;
+      color: #000;
     }
   </style>
 </head>
@@ -230,25 +234,25 @@
     }
 
     function enviarPorWhatsApp() {
-      let mensaje = "*Pedido desde el Menú:*%0A%0A";
+      let mensaje = "*🛍️ Pedido desde el Menú:*%0A%0A";
       for (let i = 0; i < menu.length; i++) {
         if (cantidades[i] > 0) {
-          mensaje += `🧾 ${menu[i].nombre} x${cantidades[i]} - $${(menu[i].precio * cantidades[i]).toLocaleString()}%0A`;
+          mensaje += `✅ ${menu[i].nombre} x${cantidades[i]} = $${(menu[i].precio * cantidades[i]).toLocaleString()}%0A`;
         }
       }
 
-      mensaje += `%0A*Total a pagar:* $${total.toLocaleString()}%0A`;
+      mensaje += `%0A💰 *Total a pagar:* $${total.toLocaleString()}%0A`;
 
       const direccion = document.getElementById("direccion").value.trim();
       const comentario = document.getElementById("comentario").value.trim();
 
-      if (direccion) mensaje += `%0A🏠 *Dirección:* ${direccion}`;
-      if (comentario) mensaje += `%0A🗒️ *Comentario:* ${comentario}`;
+      if (direccion) mensaje += `%0A📍 *Dirección:* ${direccion}`;
+      if (comentario) mensaje += `%0A📝 *Comentario:* ${comentario}`;
 
-      mensaje += `%0A%0A👉 Por favor confirmar disponibilidad.`;
+      mensaje += `%0A%0A🚚 Por favor confirmar disponibilidad.`;
 
-      const telefono = "3152553101";
-      const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
+      const telefono = "573152553101";
+      const url = `https://wa.me/${telefono}?text=${mensaje}`;
       document.getElementById("WHATSAPP").href = url;
     }
 
