@@ -8,7 +8,7 @@
     body {
       font-family: Arial, sans-serif;
       padding: 20px;
-      background: url('https://images.unsplash.com/photo-1606756795732-76ad9c2b1c86') no-repeat center center fixed;
+      background: url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092') no-repeat center center fixed;
       background-size: cover;
       color: #000;
     }
@@ -124,7 +124,6 @@
       { categoria: "Combos", nombre: "Combo Sencillo", descripcion: "Hamburguesa sencilla + gaseosa + papa", precio: 20000 },
       { categoria: "Combos", nombre: "Combo Especial", descripcion: "Hamburguesa especial + gaseosa + papa", precio: 26000 },
       { categoria: "Promociones", nombre: "Martes 2 Hamburguesas", descripcion: "2 hamburguesas sencillas por $18.000", precio: 18000 }
-      // Agrega todos los demás ítems de tu menú aquí
     ];
 
     let total = 0;
