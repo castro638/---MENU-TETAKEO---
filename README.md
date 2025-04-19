@@ -2,23 +2,25 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Menú de Taqueo</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       padding: 20px;
-      background: url('https://images.unsplash.com/photo-1606756795732-76ad9c2b1c86') no-repeat center center fixed;
+      background-image: url('https://i.imgur.com/eb8Jv7I.jpg');
       background-size: cover;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      background-position: center;
       color: #000;
     }
+
     h1, h2 {
       text-align: center;
-      color: #000;
-      background-color: rgba(255, 255, 255, 0.8);
-      padding: 10px;
-      border-radius: 10px;
+      color: black;
     }
+
     .menu-item {
       background: rgba(255, 255, 255, 0.95);
       padding: 15px;
@@ -26,10 +28,8 @@
       border-radius: 8px;
       box-shadow: 0 0 5px rgba(0,0,0,0.1);
     }
-    .precio {
-      font-weight: bold;
-      color: green;
-    }
+
+    .precio { font-weight: bold; color: green; }
     .boton {
       display: inline-block;
       margin: 10px auto;
@@ -41,6 +41,8 @@
       cursor: pointer;
       text-align: center;
     }
+
+    .contador { margin-top: 10px; font-weight: bold; }
     .link-pago {
       display: block;
       margin: 10px auto;
@@ -51,72 +53,91 @@
       border-radius: 5px;
       max-width: 300px;
     }
-    .contador, #direccionMostrada, #descripcionMostrada {
-      margin-top: 10px;
-      font-weight: bold;
-      background-color: rgba(255,255,255,0.8);
-      padding: 10px;
-      border-radius: 8px;
-    }
-    #total, #mediosPago, #extras, #WHATSAPP {
+
+    #mediosPago, #numeros, #total, #extras {
       display: none;
       text-align: center;
       margin-top: 30px;
+      font-weight: bold;
     }
+
     .categoria {
-      background-color: #ffdd57;
+      background-color: #ddd;
       padding: 10px;
       border-radius: 5px;
       margin-top: 20px;
       font-weight: bold;
     }
+
     input, textarea {
       padding: 10px;
+      margin-top: 10px;
       width: 80%;
-      margin: 10px auto;
-      display: block;
-      border-radius: 8px;
+      max-width: 500px;
+      border-radius: 5px;
       border: 1px solid #ccc;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #tarifas {
+      background: white;
+      padding: 10px;
+      margin-top: 30px;
+      border-radius: 5px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #direccionMapa {
+      margin-top: 10px;
+      font-size: 14px;
     }
   </style>
 </head>
 <body>
   <h1>Menú de Taqueo</h1>
-
   <div id="menu"></div>
+
   <div id="total">Total a pagar: $<span id="totalValor">0</span></div>
+
+  <input type="text" id="direccion" placeholder="Dirección de entrega">
+  <div id="direccionMapa"></div>
+  <textarea id="comentario" placeholder="Descripción o comentario adicional"></textarea>
 
   <button class="boton" onclick="finalizarCompra()">Finalizar Compra</button>
   <button class="boton" onclick="reiniciar()">Reiniciar</button>
 
-  <div id="extras">
-    <input type="text" id="direccion" placeholder="Escribe tu dirección aquí" oninput="mostrarDireccion()" />
-    <textarea id="comentario" placeholder="Descripción o comentarios (ej: domicilio, cerca, etc.)" oninput="mostrarDescripcion()"></textarea>
-    <div id="direccionMostrada"></div>
-    <div id="descripcionMostrada"></div>
-  </div>
-
   <div id="mediosPago">
     <h2>Medios de Pago</h2>
-    <a id="nequiPago" href="#" class="link-pago">Pagar con Nequi</a>
+    <a id="nequiBtn" href="#" class="link-pago">Pagar con Nequi</a>
     <a href="intent://send?phone=+573152553101#Intent;scheme=daviplata;package=com.davivienda.daviplata;end" class="link-pago">Pagar con Daviplata</a>
-    <p>📞 Número: 3152553101</p>
-    <p>🚚 Domicilio cerca: $4.000, lejos: $5.000, fuera de Funza: $6.000–$7.000</p>
-    <a id="WHATSAPP" class="link-pago" target="_blank">Enviar por WhatsApp</a>
+    <div id="numeros">Teléfono: 3152553101</div>
+  </div>
+
+  <div id="extras">
+    <div id="tarifas">
+      <p>Domicilio cerca: $4.000</p>
+      <p>Domicilio lejos: $5.000</p>
+      <p>Más lejos de Funza: $6.000 - $7.000</p>
+    </div>
+    <a id="WHATSAPP" class="link-pago" target="_blank">Enviar pedido por WhatsApp</a>
   </div>
 
   <script>
     const menu = [
       { categoria: "Hamburguesas", nombre: "Hamburguesa Sencilla", descripcion: "Carne artesanal(100g)...", precio: 10000 },
-      { categoria: "Perros Calientes", nombre: "Perro Especial", descripcion: "Salchicha americana...", precio: 15000 },
-      { categoria: "Bebidas", nombre: "Bebida Coca-Cola", descripcion: "Bebida 500ml", precio: 4000 },
-      // Agrega todos los demás ítems de tu menú aquí
+      { categoria: "Perros Calientes", nombre: "Perro Caliente", descripcion: "Salchicha americana...", precio: 8000 },
+      { categoria: "Bebidas", nombre: "Bebida Coca-Cola", descripcion: "Coca-Cola 500ml", precio: 4000 },
+      { categoria: "Promociones", nombre: "Promo Martes: 2 Hamburguesas Sencillas", descripcion: "2 por $18.000", precio: 18000 }
     ];
 
     let total = 0;
     const cantidades = new Array(menu.length).fill(0);
-    const contenedorMenu = document.getElementById("menu");
 
+    const contenedorMenu = document.getElementById("menu");
     let categoriaActual = "";
 
     menu.forEach((item, index) => {
@@ -140,6 +161,10 @@
       contenedorMenu.appendChild(div);
     });
 
+    function actualizarTotal() {
+      document.getElementById("totalValor").textContent = total.toLocaleString();
+    }
+
     function agregar(precio, index) {
       total += precio;
       cantidades[index]++;
@@ -157,72 +182,61 @@
       }
     }
 
-    function actualizarTotal() {
-      document.getElementById("totalValor").textContent = total.toLocaleString();
-    }
-
-    function mostrarDireccion() {
-      const direccion = document.getElementById("direccion").value.trim();
-      document.getElementById("direccionMostrada").innerHTML = direccion
-        ? `📍 Dirección: <a href="https://www.google.com/maps/search/${encodeURIComponent(direccion)}" target="_blank">${direccion}</a>`
-        : '';
-    }
-
-    function mostrarDescripcion() {
-      const comentario = document.getElementById("comentario").value.trim();
-      document.getElementById("descripcionMostrada").textContent = comentario ? `🗒️ Descripción: ${comentario}` : '';
-    }
-
     function finalizarCompra() {
       document.getElementById("mediosPago").style.display = "block";
       document.getElementById("extras").style.display = "block";
-      document.getElementById("WHATSAPP").style.display = "inline-block";
+      document.getElementById("numeros").style.display = "block";
       enviarPorWhatsApp();
-      document.getElementById("nequiPago").href = `intent://send?phone=+573152553101&text=Total%20a%20pagar:%20$${total}#Intent;scheme=nequi;package=com.nequi.mobile.app;end`;
+      abrirGoogleMaps();
       window.scrollTo(0, document.body.scrollHeight);
     }
 
     function enviarPorWhatsApp() {
-      let mensaje = "*Pedido desde el Menú:*%0A%0A";
+      let mensaje = "*🧾 Pedido desde el Menú de Taqueo:*%0A%0A";
       for (let i = 0; i < menu.length; i++) {
         if (cantidades[i] > 0) {
-          mensaje += `🧾 ${menu[i].nombre} x${cantidades[i]} - $${(menu[i].precio * cantidades[i]).toLocaleString()}%0A`;
+          mensaje += `- ${menu[i].nombre} x${cantidades[i]} - $${(menu[i].precio * cantidades[i]).toLocaleString()}%0A`;
         }
       }
-      mensaje += `%0A*Total a pagar:* $${total.toLocaleString()}%0A`;
+
+      mensaje += `%0A💰 *Total a pagar:* $${total.toLocaleString()}%0A`;
 
       const direccion = document.getElementById("direccion").value.trim();
       const comentario = document.getElementById("comentario").value.trim();
 
-      if (direccion) {
-        mensaje += `%0A📍 *Dirección de entrega:* ${direccion}`;
-      }
+      if (direccion) mensaje += `%0A📍 *Dirección de entrega:* ${direccion}`;
+      if (comentario) mensaje += `%0A📝 *Comentario:* ${comentario}`;
 
-      if (comentario) {
-        mensaje += `%0A🗒️ *Comentario:* ${comentario}`;
-      }
+      mensaje += `%0A%0A✅ Por favor confirmar disponibilidad y tiempo estimado.`;
 
-      mensaje += `%0A%0A👉 Por favor confirmar disponibilidad y tiempo estimado.`;
-      const telefono = "3152553101";
-      const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
+      const telefono = "573152553101";
+      const url = `https://wa.me/${telefono}?text=${mensaje}`;
       document.getElementById("WHATSAPP").href = url;
+
+      // Botón de Nequi
+      document.getElementById("nequiBtn").href = `intent://send?phone=+${telefono}#Intent;scheme=nequi;package=com.nequi.mobile.app;S.amount=${total};end`;
+    }
+
+    function abrirGoogleMaps() {
+      const direccion = document.getElementById("direccion").value.trim();
+      const link = direccion ? `<a href="https://www.google.com/maps/search/${encodeURIComponent(direccion)}" target="_blank">📍 Ver ubicación en Google Maps</a>` : "";
+      document.getElementById("direccionMapa").innerHTML = link;
     }
 
     function reiniciar() {
       total = 0;
-      for (let i = 0; i < cantidades.length; i++) {
-        cantidades[i] = 0;
+      cantidades.fill(0);
+      menu.forEach((_, i) => {
         document.getElementById(`cantidad-${i}`).textContent = 0;
-      }
+      });
       actualizarTotal();
       document.getElementById("total").style.display = "none";
       document.getElementById("mediosPago").style.display = "none";
       document.getElementById("extras").style.display = "none";
-      document.getElementById("WHATSAPP").style.display = "none";
-      document.getElementById("direccionMostrada").textContent = '';
-      document.getElementById("descripcionMostrada").textContent = '';
-      document.getElementById("direccion").value = '';
-      document.getElementById("comentario").value = '';
+      document.getElementById("numeros").style.display = "none";
+      document.getElementById("direccion").value = "";
+      document.getElementById("comentario").value = "";
+      document.getElementById("direccionMapa").innerHTML = "";
     }
   </script>
 </body>
