@@ -114,10 +114,19 @@
 
   <script>
     const menu = [
-      { categoria: "Hamburguesas", nombre: "Hamburguesa Sencilla", descripcion: "Carne artesanal(100g), queso doble crema...", precio: 10000 },
-      { categoria: "Hamburguesas", nombre: "Hamburguesa Especial", descripcion: "Carne artesanal(150g), tocineta ahumada...", precio: 15000 },
-      { categoria: "Bebidas", nombre: "Bebida Coca-Cola", descripcion: "Bebida personal Coca-Cola 500ml", precio: 4000 },
-      { categoria: "Otros", nombre: "Picada", descripcion: "Carne de res, cerdo, pechuga, etc.", precio: 38500 },
+      { categoria: "Hamburguesas", nombre: "Hamburguesa Sencilla", descripcion: "Carne artesanal(100g), queso doble crema, verduras, salsas, pan artesanal.", precio: 10000 },
+      { categoria: "Hamburguesas", nombre: "Hamburguesa De Patakon", descripcion: "Con patacón maduro y salsas especiales.", precio: 13000 },
+      { categoria: "Hamburguesas", nombre: "Hamburguesa Especial", descripcion: "Tocineta, huevo, doble queso, verduras y más.", precio: 15000 },
+      { categoria: "Hamburguesas", nombre: "Hamburguesa Tetakeo", descripcion: "Carne + pechuga, tocineta, huevo y todo lo demás.", precio: 22000 },
+      { categoria: "Perros Calientes", nombre: "Perro Caliente", descripcion: "Salchicha americana, papas, queso y salsas.", precio: 8000 },
+      { categoria: "Perros Calientes", nombre: "Perro Especial Mechiperro", descripcion: "Con carne esmechada y mucho sabor.", precio: 15000 },
+      { categoria: "Salchipapas", nombre: "Salchipapa Sencilla", descripcion: "Salchipapa americana, papas y salsas.", precio: 10500 },
+      { categoria: "Salchipapas", nombre: "Salchipapa Especial", descripcion: "Carne, huevo, maíz y más ingredientes top.", precio: 20500 },
+      { categoria: "Otros", nombre: "Picada", descripcion: "Carnes mixtas, papas, queso, salsas y más.", precio: 38500 },
+      { categoria: "Otros", nombre: "Mazorca", descripcion: "Maíz tierno, papas, carnes y queso.", precio: 38500 },
+      { categoria: "Bebidas", nombre: "Coca-Cola", descripcion: "Botella personal 500ml", precio: 4000 },
+      { categoria: "Bebidas", nombre: "Sprite", descripcion: "Botella personal 400ml", precio: 4000 },
+      { categoria: "Promociones", nombre: "Promo Martes: 2 Hamburguesas", descripcion: "Sencillas por $18.000", precio: 18000 }
       // Agrega más productos aquí
     ];
 
